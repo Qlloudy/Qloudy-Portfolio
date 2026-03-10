@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Qloudy | Video Editor</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+--accent1:#7c3aed;
+--accent2:#06b6d4;
+--accent3:#ec4899;
+}
+
+body{
+font-family:Inter,sans-serif;
+background:#0a0a0a;
+color:white;
+}
+
+nav{
+position:fixed;
+width:100%;
+padding:20px 40px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+z-index:10;
+background:linear-gradient(to bottom, rgba(0,0,0,.8), transparent);
+}
+
+nav a{
+color:white;
+text-decoration:none;
+margin-left:25px;
+font-weight:500;
+transition:.2s;
+}
+
+nav a:hover{
+color:var(--accent2);
+}
+
+.hero{
+height:100vh;
+position:relative;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+overflow:hidden;
+}
+
+.hero-video-wrapper{
+position:absolute;
+width:100%;
+height:100%;
+overflow:hidden;
+}
+
+.hero-video-wrapper video{
+position:absolute;
+top:50%;
+left:50%;
+
+min-width:100%;
+min-height:100%;
+
+width:auto;
+height:auto;
+
+transform:translate(-50%, -50%) scale(1.15);
+
+object-fit:cover;
+
+filter:blur(14px) brightness(.35);
+
+transition:opacity 1.5s ease;
+}
+
+#videoA{
+opacity:1;
+z-index:1;
+}
+
+#videoB{
+opacity:0;
+z-index:2;
+}
+
+.hero-content{
+position:relative;
+z-index:2;
+}
+
+.hero h1{
+font-size:4rem;
+font-weight:800;
+letter-spacing:-2px;
+background:linear-gradient(90deg,var(--accent1),var(--accent2),var(--accent3));
+-webkit-background-clip:text;
+color:transparent;
+}
+
+.hero p{
+margin-top:10px;
+font-size:1.2rem;
+color:#ccc;
+}
+
+.total-views{
+margin-top:20px;
+font-size:1.1rem;
+color:var(--accent2);
+}
+
+.section{
+padding:120px 10%;
+}
+
+.section h2{
+font-size:2.2rem;
+margin-bottom:40px;
+color:var(--accent2);
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:30px;
+}
+
+.card{
+background:#111;
+border-radius:16px;
+overflow:hidden;
+transition:.35s;
+border:1px solid rgba(255,255,255,.05);
+}
+
+.card:hover{
+transform:translateY(-6px);
+box-shadow:0 10px 30px rgba(124,58,237,.4);
+}
+
+.card iframe{
+width:100%;
+height:200px;
+border:none;
+}
+
+.overlay{
+padding:15px;
+}
+
+.views{
+font-size:.9rem;
+color:#aaa;
+margin-top:5px;
+}
+
+.about{
+max-width:700px;
+line-height:1.6;
+color:#bbb;
+}
+
+.contact{
+text-align:center;
+}
+
+.contact a{
+color:white;
+font-size:1.1rem;
+text-decoration:none;
+border:1px solid var(--accent2);
+padding:12px 28px;
+border-radius:30px;
+display:inline-block;
+margin-top:20px;
+transition:.3s
+}
+
+.contact a:hover{
+background:var(--accent2);
+color:black
+}
+
+footer{
+padding:40px;
+text-align:center;
+color:#666;
+font-size:.9rem
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+<div><strong>Qloudy</strong></div>
+<div>
+<a href="#work">Work</a>
+<a href="#about">About</a>
+<a href="#contact">Contact</a>
+</div>
+</nav>
+
+<section class="hero">
+
+<div class="hero-video-wrapper">
+
+<video autoplay muted playsinline id="videoA">
+<source src="What I Want Out Of 2026.mp4" type="video/mp4">
+</video>
+
+<video autoplay muted playsinline id="videoB">
+<source src="What I Want Out Of 2026.mp4" type="video/mp4">
+</video>
+
+</div>
+
+<div class="hero-content">
+<h1>Qloudy</h1>
+<p>Video Editor • Storyteller</p>
+<div class="total-views" id="totalViews">Loading total views...</div>
+</div>
+
+</section>
+
+<section id="work" class="section">
+
+<h2>Past Work</h2>
+
+<div class="grid">
+
+<div class="card" data-video="aoOYKqjPuO8">
+
+<iframe 
+src="https://www.youtube.com/embed/aoOYKqjPuO8"
+allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+allowfullscreen>
+</iframe>
+
+<div class="overlay">
+Why Is Korra So HATED?
+<div class="views">Loading views...</div>
+</div>
+
+</div>
+
+
+<div class="card" data-video="VIDEO_ID_HERE">
+
+<iframe src="https://www.youtube.com/embed/VIDEO_ID_HERE"></iframe>
+
+<div class="overlay">
+Project Title
+<div class="views">Loading views...</div>
+</div>
+
+</div>
+
+
+<div class="card" data-video="VIDEO_ID_HERE">
+
+<iframe src="https://www.youtube.com/embed/VIDEO_ID_HERE"></iframe>
+
+<div class="overlay">
+Project Title
+<div class="views">Loading views...</div>
+</div>
+
+</div>
+
+
+</div>
+</section>
+
+
+<section id="about" class="section">
+<h2>About</h2>
+
+<p class="about">
+I'm a video editor focused on cinematic pacing, storytelling, and high-energy edits. I work with creators and brands to craft visuals that keep audiences engaged. Experienced with Premiere Pro, After Effects, and advanced color grading workflows.
+</p>
+
+</section>
+
+
+<section id="contact" class="section contact">
+
+<h2>Let's Work</h2>
+
+<p>Available for freelance and creative collaborations.</p>
+
+<a href="mailto:iwatchqlouds@gmail.com">Contact Me</a>
+
+</section>
+
+
+<footer>
+© 2026 Qloudy
+</footer>
+
+
+<script>
+
+const API_KEY = "AIzaSyCYk8ph2-xvNQX7WHnzh6ksvfAm3mfpfTs";
+
+async function loadViews(){
+
+const cards = document.querySelectorAll(".card");
+
+let total = 0;
+
+for (const card of cards){
+
+const id = card.dataset.video;
+
+const url = `https://www.googleapis.com/youtube/v3/videos?id=${id}&key=${API_KEY}&part=statistics`;
+
+const res = await fetch(url);
+
+const data = await res.json();
+
+if(!data.items || data.items.length === 0) continue;
+
+const views = parseInt(data.items[0].statistics.viewCount);
+total += views;
+
+card.querySelector(".views").innerText =
+views.toLocaleString() + " views";
+
+}
+
+document.getElementById("totalViews").innerText =
+total.toLocaleString() + " total video views";
+
+}
+
+loadViews();
+
+const videoA = document.getElementById("videoA");
+const videoB = document.getElementById("videoB");
+
+let active = "A";
+
+function crossfadeLoop(){
+
+let current = active === "A" ? videoA : videoB;
+let next = active === "A" ? videoB : videoA;
+
+if(current.currentTime >= 18){
+
+next.currentTime = 0;
+next.play();
+
+next.style.opacity = 1;
+current.style.opacity = 0;
+
+active = active === "A" ? "B" : "A";
+
+}
+
+}
+
+setInterval(crossfadeLoop, 200);
+
+</script>
+
+
+</body>
+</html>
