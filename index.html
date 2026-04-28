@@ -439,7 +439,7 @@ section { padding: 90px 52px; position: relative; }
 
 .work-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 14px;
 }
 
@@ -452,19 +452,22 @@ section { padding: 90px 52px; position: relative; }
   transition: border-color 0.25s, box-shadow 0.25s, transform 0.2s;
 }
 .wcard:hover { transform: translateY(-3px); }
-.wcard.wide { grid-column: 1 / -1; }
 
-/* neon top stripe */
+/* neon top stripe — cycles through 6 colors */
 .wcard-stripe { height: 2px; }
-.wcard:nth-child(1) .wcard-stripe { background: var(--cyan); box-shadow: var(--glow-c); }
-.wcard:nth-child(2) .wcard-stripe { background: var(--pink); box-shadow: var(--glow-p); }
-.wcard:nth-child(3) .wcard-stripe { background: var(--green); box-shadow: var(--glow-g); }
+.wcard:nth-child(1) .wcard-stripe { background: var(--cyan);   box-shadow: var(--glow-c); }
+.wcard:nth-child(2) .wcard-stripe { background: var(--pink);   box-shadow: var(--glow-p); }
+.wcard:nth-child(3) .wcard-stripe { background: var(--green);  box-shadow: var(--glow-g); }
 .wcard:nth-child(4) .wcard-stripe { background: var(--yellow); box-shadow: var(--glow-y); }
+.wcard:nth-child(5) .wcard-stripe { background: var(--orange); box-shadow: var(--glow-o); }
+.wcard:nth-child(6) .wcard-stripe { background: var(--cyan);   box-shadow: var(--glow-c); }
 
-.wcard:nth-child(1):hover { border-color: rgba(0,245,255,0.35); box-shadow: 0 4px 30px rgba(0,245,255,0.1); }
+.wcard:nth-child(1):hover { border-color: rgba(0,245,255,0.35);  box-shadow: 0 4px 30px rgba(0,245,255,0.1); }
 .wcard:nth-child(2):hover { border-color: rgba(255,28,247,0.35); box-shadow: 0 4px 30px rgba(255,28,247,0.1); }
-.wcard:nth-child(3):hover { border-color: rgba(15,255,80,0.35); box-shadow: 0 4px 30px rgba(15,255,80,0.1); }
+.wcard:nth-child(3):hover { border-color: rgba(15,255,80,0.35);  box-shadow: 0 4px 30px rgba(15,255,80,0.1); }
 .wcard:nth-child(4):hover { border-color: rgba(255,233,61,0.35); box-shadow: 0 4px 30px rgba(255,233,61,0.1); }
+.wcard:nth-child(5):hover { border-color: rgba(255,107,0,0.35);  box-shadow: 0 4px 30px rgba(255,107,0,0.1); }
+.wcard:nth-child(6):hover { border-color: rgba(0,245,255,0.35);  box-shadow: 0 4px 30px rgba(0,245,255,0.1); }
 
 .wcard-video { aspect-ratio: 16/9; background: #000; }
 .wcard-video iframe { width: 100%; height: 100%; border: none; display: block; }
@@ -478,8 +481,14 @@ section { padding: 90px 52px; position: relative; }
 }
 .wcard-views {
   font-family: 'Share Tech Mono', monospace;
-  font-size: 0.7rem; letter-spacing: 1px; color: var(--muted);
+  font-size: 0.72rem; letter-spacing: 1.5px;
 }
+.wcard:nth-child(1) .wcard-views { color: var(--cyan);   text-shadow: 0 0 8px rgba(0,245,255,0.5); }
+.wcard:nth-child(2) .wcard-views { color: var(--pink);   text-shadow: 0 0 8px rgba(255,28,247,0.5); }
+.wcard:nth-child(3) .wcard-views { color: var(--green);  text-shadow: 0 0 8px rgba(15,255,80,0.5); }
+.wcard:nth-child(4) .wcard-views { color: var(--yellow); text-shadow: 0 0 8px rgba(255,233,61,0.5); }
+.wcard:nth-child(5) .wcard-views { color: var(--orange); text-shadow: 0 0 8px rgba(255,107,0,0.5); }
+.wcard:nth-child(6) .wcard-views { color: var(--cyan);   text-shadow: 0 0 8px rgba(0,245,255,0.5); }
 
 /* ── ABOUT ────────────────────────────────────── */
 #about { background: var(--bg); }
@@ -712,7 +721,6 @@ footer::before {
   .hero-right { order: -1; }
   section { padding: 64px 24px; }
   .work-grid { grid-template-columns: 1fr; }
-  .wcard.wide { grid-column: 1; }
   .about-layout { grid-template-columns: 1fr; }
   .contact-layout { grid-template-columns: 1fr; }
   .f-row { grid-template-columns: 1fr; }
@@ -816,7 +824,9 @@ footer::before {
   <div class="sec-title reveal">Featured <span class="nt">Edits</span></div>
 
   <div class="work-grid">
-    <div class="wcard wide reveal" data-video="aoOYKqjPuO8">
+
+    <!-- 1st: Korra -->
+    <div class="wcard reveal" data-video="aoOYKqjPuO8">
       <div class="wcard-stripe"></div>
       <div class="wcard-video">
         <iframe src="https://www.youtube.com/embed/aoOYKqjPuO8?rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe>
@@ -827,6 +837,31 @@ footer::before {
       </div>
     </div>
 
+    <!-- 2nd: new video -->
+    <div class="wcard reveal" data-video="n4yZc9DjwLQ">
+      <div class="wcard-stripe"></div>
+      <div class="wcard-video">
+        <iframe src="https://www.youtube.com/embed/n4yZc9DjwLQ?rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="wcard-body">
+        <div class="wcard-title" id="title-n4yZc9DjwLQ">Loading title...</div>
+        <div class="wcard-views" id="views-n4yZc9DjwLQ">loading...</div>
+      </div>
+    </div>
+
+    <!-- 3rd: new video -->
+    <div class="wcard reveal" data-video="2HGF6zkihz8">
+      <div class="wcard-stripe"></div>
+      <div class="wcard-video">
+        <iframe src="https://www.youtube.com/embed/2HGF6zkihz8?rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="wcard-body">
+        <div class="wcard-title" id="title-2HGF6zkihz8">Loading title...</div>
+        <div class="wcard-views" id="views-2HGF6zkihz8">loading...</div>
+      </div>
+    </div>
+
+    <!-- 4th: Whiplash -->
     <div class="wcard reveal" data-video="mhyQQ-wPsYQ">
       <div class="wcard-stripe"></div>
       <div class="wcard-video">
@@ -838,6 +873,7 @@ footer::before {
       </div>
     </div>
 
+    <!-- 5th: Open World -->
     <div class="wcard reveal" data-video="3HK7CD_q62I">
       <div class="wcard-stripe"></div>
       <div class="wcard-video">
@@ -849,7 +885,8 @@ footer::before {
       </div>
     </div>
 
-    <div class="wcard wide reveal" data-video="otQR2T77lE8">
+    <!-- 6th: One Piece -->
+    <div class="wcard reveal" data-video="otQR2T77lE8">
       <div class="wcard-stripe"></div>
       <div class="wcard-video">
         <iframe src="https://www.youtube.com/embed/otQR2T77lE8?rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe>
@@ -859,6 +896,7 @@ footer::before {
         <div class="wcard-views" id="views-otQR2T77lE8">loading...</div>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -874,7 +912,7 @@ footer::before {
       <p class="about-body">
         I'm a video editor who genuinely cares about <strong>storytelling</strong> — maybe too much. I'll spend hours on a single cut just to get the pacing right.
         <br><br>
-        I make video essays about anime, film, and games — the stuff I actually love — and I help creators make their content hit harder. I work with <strong>Adobe Premiere Pro</strong>, <strong>Photoshop</strong>, and I love trying to continously improve!
+        I make video essays about anime, film, and games — the stuff I actually love — and I help creators make their content hit harder. I work with <strong>Adobe Premiere Pro</strong>, <strong>Photoshop</strong>, and I love continously improving!
         <br><br>
         If you have a story that deserves to be told better, I want to help tell it.
       </p>
@@ -1016,19 +1054,21 @@ const obs = new IntersectionObserver(entries => {
 }, { threshold: 0.08 });
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-// YouTube views
+// YouTube views + titles for new videos
 const API_KEY = "AIzaSyBJsS7jWVgzop2vTbA1IpnRaEYVJYRDvrw";
 async function loadViews() {
-  const ids = ["aoOYKqjPuO8","mhyQQ-wPsYQ","3HK7CD_q62I","otQR2T77lE8"].join(',');
+  const ids = ["aoOYKqjPuO8","n4yZc9DjwLQ","2HGF6zkihz8","mhyQQ-wPsYQ","3HK7CD_q62I","otQR2T77lE8"].join(',');
   try {
-    const r = await fetch(`https://www.googleapis.com/youtube/v3/videos?id=${ids}&key=${API_KEY}&part=statistics`);
+    const r = await fetch(`https://www.googleapis.com/youtube/v3/videos?id=${ids}&key=${API_KEY}&part=statistics,snippet`);
     const d = await r.json();
     if (!d.items) return;
     let total = 0;
     d.items.forEach(item => {
       const v = parseInt(item.statistics.viewCount); total += v;
-      const el = document.getElementById('views-' + item.id);
-      if (el) el.textContent = v.toLocaleString() + ' views';
+      const viewEl  = document.getElementById('views-' + item.id);
+      const titleEl = document.getElementById('title-' + item.id);
+      if (viewEl)  viewEl.textContent  = v.toLocaleString() + ' views';
+      if (titleEl) titleEl.textContent = item.snippet.title;
     });
     const fmt = n => n >= 1e6 ? (n/1e6).toFixed(1)+'M+' : Math.round(n/1e3)+'K+';
     document.getElementById('heroViews').textContent = fmt(total);
