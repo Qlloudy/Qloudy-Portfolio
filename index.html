@@ -385,7 +385,14 @@ nav::after {
   color: var(--pink); text-shadow: var(--glow-p);
 }
 .vhs-rec-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--pink); box-shadow: var(--glow-p); animation: blink 1s step-end infinite; }
-.vhs-sp { font-family: 'VT323', monospace; font-size: 0.8rem; letter-spacing: 2px; color: rgba(0,245,255,0.5); }
+.vhs-play-btn {
+  background: none; border: none; padding: 0; cursor: pointer;
+  font-family: 'VT323', monospace; font-size: 0.8rem; letter-spacing: 2px;
+  color: rgba(0,245,255,0.5);
+  transition: color 0.15s, text-shadow 0.15s;
+}
+.vhs-play-btn:hover { color: var(--cyan); text-shadow: var(--glow-c); }
+
 .vhs-clock { font-family: 'VT323', monospace; font-size: 1rem; letter-spacing: 2px; color: var(--yellow); text-shadow: var(--glow-y); }
 .vhs-tape {
   flex: 1; margin: 0 10px; height: 2px;
@@ -784,7 +791,7 @@ footer::before {
   <div class="hero-right">
     <div class="vhs-outer">
       <div class="vhs-frame">
-        <video autoplay muted playsinline loop>
+        <video id="heroVid" autoplay muted playsinline>
           <source src="What I Want Out Of 2026.mp4" type="video/mp4">
         </video>
         <div class="vhs-hud">
@@ -795,7 +802,7 @@ footer::before {
           <div class="vhs-hud-bot">
             <div class="vhs-clock" id="vhsClock">00:00:00:00</div>
             <div class="vhs-tape"><div class="vhs-tape-fill"></div></div>
-            <div class="vhs-sp">◀▶ PLAY</div>
+            <button id="vhsPlayBtn" class="vhs-sp vhs-play-btn">◀▶ PLAY</button>
           </div>
         </div>
       </div>
@@ -951,13 +958,46 @@ footer::before {
 </footer>
 
 <script>
-// VHS timecode
-function tick() {
-  const n = new Date(), p = s => String(s).padStart(2,'0');
-  document.getElementById('vhsClock').textContent =
-    `${p(n.getHours())}:${p(n.getMinutes())}:${p(n.getSeconds())}:${p(Math.floor(n.getMilliseconds()/33))}`;
-}
-setInterval(tick, 33); tick();
+// ── Video: loop 0:10 → 0:30, synced timecode, play/pause ──
+const heroVid = document.getElementById('heroVid');
+const clockEl = document.getElementById('vhsClock');
+const playBtn = document.getElementById('vhsPlayBtn');
+
+const LOOP_START = 10;
+const LOOP_END   = 30;
+
+// Seek to loop start once metadata is ready
+heroVid.addEventListener('loadedmetadata', () => {
+  heroVid.currentTime = LOOP_START;
+});
+
+// Loop segment and update timecode
+heroVid.addEventListener('timeupdate', () => {
+  // Loop
+  if (heroVid.currentTime >= LOOP_END || heroVid.currentTime < LOOP_START) {
+    heroVid.currentTime = LOOP_START;
+  }
+
+  // Timecode from video currentTime
+  const t   = heroVid.currentTime;
+  const h   = Math.floor(t / 3600);
+  const m   = Math.floor((t % 3600) / 60);
+  const s   = Math.floor(t % 60);
+  const fr  = Math.floor((t % 1) * 30); // 30fps frames
+  const p   = n => String(n).padStart(2, '0');
+  clockEl.textContent = `${p(h)}:${p(m)}:${p(s)}:${p(fr)}`;
+});
+
+// Play / pause toggle
+playBtn.addEventListener('click', () => {
+  if (heroVid.paused) {
+    heroVid.play();
+    playBtn.textContent = '◀▶ PLAY';
+  } else {
+    heroVid.pause();
+    playBtn.textContent = '▐▐ PAUSE';
+  }
+});
 
 // Smooth scroll
 document.querySelectorAll('a[href^="#"]').forEach(a => {
