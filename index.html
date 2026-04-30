@@ -26,7 +26,7 @@
   --cream:   #f0ead8;
 
   /* No electric glows — just subtle warm shadows */
-  --shadow-red:   2px 2px 0 #2d1eb5;
+  --shadow-red:   2px 2px 0 #b52b1e;
   --shadow-amber: 2px 2px 0 #c47d1a;
 }
 
@@ -170,7 +170,7 @@ nav {
   position: absolute; top: 0; left: 0;
   clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
 }
-.glitch::before { animation: glitch1 5s infinite; color: var(--green); }
+.glitch::before { animation: glitch1 5s infinite; color: var(--red); }
 .glitch::after  { animation: glitch2 5s infinite; color: var(--blue); clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%); }
 @keyframes glitch1 { 0%,90%,100% { transform:translate(0); opacity:0; } 91% { transform:translate(-3px,1px); opacity:0.8; } 93% { transform:translate(3px,-1px); opacity:0.8; } 95% { transform:translate(0); opacity:0; } }
 @keyframes glitch2 { 0%,90%,100% { transform:translate(0); opacity:0; } 92% { transform:translate(3px,2px); opacity:0.7; } 94% { transform:translate(-3px,-1px); opacity:0.7; } 96% { transform:translate(0); opacity:0; } }
@@ -365,13 +365,13 @@ section { padding: 90px 52px; position: relative; }
 .contact-link { display: inline-flex; align-items: center; gap: 10px; font-family: 'Share Tech Mono', monospace; font-size: 0.73rem; letter-spacing: 2px; color: var(--amber); text-decoration: none; border: 1px solid rgba(196,125,26,0.4); border-radius: 1px; padding: 10px 16px; background: rgba(196,125,26,0.07); transition: border-color 0.15s, background 0.15s; }
 .contact-link:hover { border-color: var(--amber); background: rgba(196,125,26,0.14); }
 
-.form-panel { background: var(--surface); border: 1px solid rgba(240,234,216,0.12); border-radius: 2px; padding: 32px; position: relative; overflow: hidden; }
+.form-panel { background: #221e18; border: 1px solid rgba(240,234,216,0.12); border-radius: 2px; padding: 32px; position: relative; overflow: hidden; }
 .form-panel::before { content: ''; position: absolute; top: 0; right: 0; width: 60px; height: 3px; background: var(--amber); }
 .form-panel::after  { content: ''; position: absolute; top: 0; right: 0; width: 3px; height: 60px; background: var(--amber); }
 
 .f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .f-field { display: flex; flex-direction: column; gap: 5px; margin-bottom: 14px; }
-.f-label { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 2px; color: rgba(240,234,216,0.4); }
+.f-label { font-family: 'Share Tech Mono', monospace; font-size: 0.65rem; letter-spacing: 2px; color: rgba(240,234,216,0.65); }
 .f-label::before { content: '// '; }
 .f-field input, .f-field textarea { background: rgba(240,234,216,0.04); border: 1px solid rgba(240,234,216,0.15); border-radius: 1px; padding: 11px 14px; color: var(--panel); font-family: 'Share Tech Mono', monospace; font-size: 0.82rem; outline: none; transition: border-color 0.2s, background 0.2s; }
 .f-field input:focus, .f-field textarea:focus { border-color: var(--amber); background: rgba(196,125,26,0.06); }
@@ -444,11 +444,11 @@ footer { background: var(--ink); border-top: 3px solid var(--red); padding: 24px
     <h1>
       HI I'M<br>
       <span class="nc glitch" data-text="QLOUDY">QLOUDY</span><br>
-      I MAKE <span class="np">STORIES</span>
+      I EDIT <span class="np">STORIES</span>
     </h1>
     <p class="hero-sub">
       Video essays, cinematic edits or really whatever you want —<br>
-      but most importantly whatever video it is, it's the kind people actually <span class="hl"> <u>finish watching.</u> </span>
+      but most importantly whatever video it is, it's the kind people actually <span class="hl">finish watching.</span>
     </p>
     <div class="hero-ctas">
       <a href="#work" class="cbtn cbtn-c">◈ See My Work</a>
