@@ -383,24 +383,6 @@ footer { background: var(--black); border-top: 1px solid var(--line); padding: 2
   </div>
   <div class="conveyor-wrap">
     <div class="conveyor" id="conveyor">
-      <!-- Half A: 3 copies -->
-      <div class="client">
-        <div class="client-av"><img src="btc.jpg" alt="The Blacktop Collective"></div>
-        <div><div class="client-name">The Blacktop Collective</div><div class="client-type">YouTube Collective</div></div>
-      </div>
-      <div class="client">
-        <div class="client-av"><img src="Qloudy.jpg" alt="Qloudy"></div>
-        <div><div class="client-name">Qloudy</div><div class="client-type">YouTuber</div></div>
-      </div>
-      <div class="client">
-        <div class="client-av"><img src="btc.jpg" alt="The Blacktop Collective"></div>
-        <div><div class="client-name">The Blacktop Collective</div><div class="client-type">YouTube Collective</div></div>
-      </div>
-      <!-- Half B: identical 3 copies for seamless loop -->
-      <div class="client">
-        <div class="client-av"><img src="Qloudy.jpg" alt="Qloudy"></div>
-        <div><div class="client-name">Qloudy</div><div class="client-type">YouTuber</div></div>
-      </div>
       <div class="client">
         <div class="client-av"><img src="btc.jpg" alt="The Blacktop Collective"></div>
         <div><div class="client-name">The Blacktop Collective</div><div class="client-type">YouTube Collective</div></div>
@@ -507,37 +489,65 @@ const obs = new IntersectionObserver(es => {
 }, { threshold: 0.08 });
 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-// Seamless conveyor — JS driven for pixel-perfect loop
+// ── Seamless conveyor — screen-size independent ──
 (function() {
   const track = document.getElementById('conveyor');
   if (!track) return;
-  const cards = Array.from(track.children);
-  // Clone all cards once more so we always have enough to fill + loop
-  cards.forEach(c => track.appendChild(c.cloneNode(true)));
 
+  // The unique set of cards as authored in the HTML.
+  const originals = Array.from(track.children);
+  const SPEED = 40; // px per second
+  let unitWidth = 0; // width of ONE full set of the original cards
   let offset = 0;
-  let halfWidth = 0;
-  const SPEED = 40; // pixels per second
 
-  function measure() {
-    // Half width = width of the original (pre-clone) set
-    halfWidth = 0;
-    for (let i = 0; i < cards.length; i++) {
-      halfWidth += track.children[i].offsetWidth;
+  function rebuild() {
+    // Reset to just the originals first
+    track.querySelectorAll('[data-clone]').forEach(n => n.remove());
+
+    // Measure the width of one set of originals
+    unitWidth = originals.reduce((sum, el) => sum + el.offsetWidth, 0);
+    if (unitWidth === 0) return;
+
+    // We need the track to be at least (viewport + one full unit) wide so that
+    // as we scroll by exactly one unit and reset, cards always cover the screen.
+    // Clone whole sets until we exceed 2x viewport width.
+    const target = window.innerWidth * 2 + unitWidth;
+    let totalWidth = unitWidth;
+    while (totalWidth < target) {
+      originals.forEach(el => {
+        const c = el.cloneNode(true);
+        c.setAttribute('data-clone', '');
+        track.appendChild(c);
+      });
+      totalWidth += unitWidth;
     }
   }
-  // Measure after images load
-  window.addEventListener('load', measure);
-  setTimeout(measure, 300);
-  window.addEventListener('resize', measure);
+
+  function measureAndRebuild() {
+    // Clear transform so measurement is accurate
+    track.style.transform = 'translate3d(0,0,0)';
+    offset = 0;
+    rebuild();
+  }
+
+  window.addEventListener('load', measureAndRebuild);
+  setTimeout(measureAndRebuild, 300);
+
+  // Re-run on resize (debounced) so it stays seamless at any width
+  let rt;
+  window.addEventListener('resize', () => {
+    clearTimeout(rt);
+    rt = setTimeout(measureAndRebuild, 150);
+  });
 
   let last = performance.now();
   function tick(now) {
     const dt = (now - last) / 1000;
     last = now;
-    if (halfWidth > 0) {
+    if (unitWidth > 0) {
       offset += SPEED * dt;
-      if (offset >= halfWidth) offset -= halfWidth;
+      // Loop by exactly one unit width — the next set is identical so it's invisible
+      if (offset >= unitWidth) offset -= unitWidth;
       track.style.transform = `translate3d(${-offset}px,0,0)`;
     }
     requestAnimationFrame(tick);
