@@ -252,9 +252,8 @@ body.loaded .hero h1 .line:nth-child(3) span { animation: lineUp 0.9s cubic-bezi
 .conveyor-wrap::after { right: 0; background: linear-gradient(to left, var(--panel), transparent); }
 .conveyor { display: flex; width: max-content; animation: conv 16s linear infinite; }
 .conveyor:hover { animation-play-state: paused; }
-@keyframes conv { from{transform:translateX(0);} to{transform:translateX(-50%);} }
-.client {
-  display: flex; align-items: center; gap: 18px; padding: 20px 48px;
+@keyframes conv { from{transform:translateX(0);} to{transform:translateX(-30%);} }.client {
+  display: flex; align-items: center; gap: 45px; padding: 20px 48px;
   border-right: 1px solid var(--line);
 }
 .client-av { width: 64px; height: 64px; border-radius: 50%; overflow: hidden; border: 1px solid var(--line2); flex-shrink: 0; }
@@ -381,12 +380,6 @@ footer { background: var(--black); border-top: 1px solid var(--line); padding: 2
   <div class="letterbox top"></div>
   <div class="letterbox bottom"></div>
 
-  <div class="hero-video">
-    <video id="heroVid" autoplay muted loop playsinline>
-      <source src="What I Want Out Of 2026.mp4" type="video/mp4">
-    </video>
-  </div>
-
   <div class="hero-content">
     <div class="hero-meta">
       <span class="rec"><span class="rec-dot"></span>REC</span>
@@ -433,9 +426,8 @@ footer { background: var(--black); border-top: 1px solid var(--line); padding: 2
         <div class="wcard-body"><div class="wcard-title">Why Is Korra So HATED?</div><div class="wcard-views" id="views-aoOYKqjPuO8">loading...</div></div>
       </div>
       <div class="wcard">
-        <div class="wcard-embed" style="left: 20px; top: -5px;"><div class="wcard-num">02</div><iframe src="https://www.youtube.com/embed/xDrbpH3Etgk?si=IR2w7p7peWlFOcHq" allowfullscreen="" loading="lazy"></iframe></div>
-        <div class="wcard-body"><div class="wcard-title" id="title-n4yZc9DjwLQ">I made my hood friends play Minecraft for the first time
-</div><div class="wcard-views" id="views-n4yZc9DjwLQ">loading...</div></div>
+        <div class="wcard-embed"><div class="wcard-num">02</div><iframe src="https://www.youtube.com/embed/xDrbpH3Etgk?si=aowBTq1usJaRF8ef" allowfullscreen loading="lazy"></iframe></div>
+        <div class="wcard-body"><div class="wcard-title" id="title-xDrbpH3Etgk">I made my hood friends play Minecraft for the first time</div><div class="wcard-views" id="views-xDrbpH3Etgk">loading...</div></div>
       </div>
       <div class="wcard">
         <div class="wcard-embed"><div class="wcard-num">03</div><iframe src="https://www.youtube.com/embed/2HGF6zkihz8?rel=0&modestbranding=1" allowfullscreen loading="lazy"></iframe></div>
@@ -467,13 +459,54 @@ footer { background: var(--black); border-top: 1px solid var(--line); padding: 2
   </div>
   <div class="conveyor-wrap">
     <div class="conveyor">
+      <!-- Repeat this block 6-8 times for smooth infinite scroll -->
       <div class="client">
         <div class="client-av"><img src="btc.jpg" alt="The Blacktop Collective"></div>
-        <div><div class="client-name">The Blacktop Collective</div><div class="client-type">YouTuber</div></div>
+        <div><div class="client-name">The Blacktop Collective</div><div class="client-type">YouTube Collective</div></div>
+      </div>
+      <div class="client">
+        <div class="client-av"><img src="Qloudy.jpg" alt="Qloudy"></div>
+        <div><div class="client-name">Qloudy</div><div class="client-type">YouTuber</div></div>
       </div>
       <div class="client">
         <div class="client-av"><img src="btc.jpg" alt="The Blacktop Collective"></div>
-        <div><div class="client-name">The Blacktop Collective</div><div class="client-type">YouTuber</div></div>
+        <div><div class="client-name">The Blacktop Collective</div><div class="client-type">YouTube Collective</div></div>
+      </div>
+      <div class="client">
+        <div class="client-av"><img src="Qloudy.jpg" alt="Qloudy"></div>
+        <div><div class="client-name">Qloudy</div><div class="client-type">YouTuber</div></div>
+      </div>
+      <div class="client">
+        <div class="client-av"><img src="btc.jpg" alt="The Blacktop Collective"></div>
+        <div><div class="client-name">The Blacktop Collective</div><div class="client-type">YouTube Collective</div></div>
+      </div>
+      <div class="client">
+        <div class="client-av"><img src="Qloudy.jpg" alt="Qloudy"></div>
+        <div><div class="client-name">Qloudy</div><div class="client-type">YouTuber</div></div>
+      </div>
+      <div class="client">
+        <div class="client-av"><img src="btc.jpg" alt="The Blacktop Collective"></div>
+        <div><div class="client-name">The Blacktop Collective</div><div class="client-type">YouTube Collective</div></div>
+      </div>
+      <div class="client">
+        <div class="client-av"><img src="Qloudy.jpg" alt="Qloudy"></div>
+        <div><div class="client-name">Qloudy</div><div class="client-type">YouTuber</div></div>
+      </div>
+      <div class="client">
+        <div class="client-av"><img src="btc.jpg" alt="The Blacktop Collective"></div>
+        <div><div class="client-name">The Blacktop Collective</div><div class="client-type">YouTube Collective</div></div>
+      </div>
+      <div class="client">
+        <div class="client-av"><img src="Qloudy.jpg" alt="Qloudy"></div>
+        <div><div class="client-name">Qloudy</div><div class="client-type">YouTuber</div></div>
+      </div>
+      <div class="client">
+        <div class="client-av"><img src="btc.jpg" alt="The Blacktop Collective"></div>
+        <div><div class="client-name">The Blacktop Collective</div><div class="client-type">YouTube Collective</div></div>
+      </div>
+      <div class="client">
+        <div class="client-av"><img src="Qloudy.jpg" alt="Qloudy"></div>
+        <div><div class="client-name">Qloudy</div><div class="client-type">YouTuber</div></div>
       </div>
     </div>
   </div>
@@ -494,9 +527,7 @@ footer { background: var(--black); border-top: 1px solid var(--line); padding: 2
         Every frame is a decision. I'm a video editor who cares about <em>storytelling</em> — maybe too much.
       </p>
       <p class="about-body">
-        I'll spend hours on a single cut just to get the pacing right. I make video essays about anime, film, and games — the stuff I actually love — and I help creators make their content hit harder.
-        <br><br>
-        I work with <strong>Adobe Premiere Pro</strong>, <strong>Photoshop</strong>, and I'm always pushing to improve. If you have a story that deserves to be told better, I want to help tell it.
+        I'll spend hours on a single cut just to get the pacing right. Great videos aren't just about looking good—they're about making people care. Whether you're a company, a content creator, or just someone with a story to tell, I can help turn your ideas into something people will remember.
       </p>
       <div class="about-stats">
         <div class="astat"><div class="astat-n">500K+</div><div class="astat-l">YT Views</div></div>
@@ -506,12 +537,12 @@ footer { background: var(--black); border-top: 1px solid var(--line); padding: 2
     </div>
     <div class="about-side reveal">
       <div class="about-side-label">// TOOLKIT</div>
-      <div class="skill">Adobe Premiere Pro <span class="k">EDIT</span></div>
+      <div class="skill">Adobe Premiere Pro <span class="k">EDITING</span></div>
+      <div class="skill">Adobe After Effects <span class="k">VFX</span></div>
       <div class="skill">Adobe Photoshop <span class="k">DESIGN</span></div>
       <div class="skill">Color Grading &amp; LUTs <span class="k">COLOR</span></div>
-      <div class="skill">Video Essay Editing <span class="k">STORY</span></div>
       <div class="skill">Thumbnail Design <span class="k">CTR</span></div>
-      <div class="skill">Pacing &amp; Storytelling <span class="k">FLOW</span></div>
+      <div class="skill">Photography &amp; Videography  <span class="k">FLOW</span></div>
       <div class="skill">Sound Design <span class="k">AUDIO</span></div>
     </div>
   </div>
@@ -523,8 +554,7 @@ footer { background: var(--black); border-top: 1px solid var(--line); padding: 2
     <div class="reveal">
       <div class="sec-tag">Contact</div>
       <h2 class="contact-headline">Let's make<br>something <em>great.</em></h2>
-      <p class="contact-body">Solo creator, brand, or somewhere in between — if you care about telling a good story, I want to hear from you. All messages answered within 48 hours.</p>
-      <a href="https://www.youtube.com/@Qloudy" target="_blank" class="contact-yt">▶ youtube.com/@Qloudy</a>
+      <p class="contact-body">Have an idea you'd like to turn into a video? Let's talk. Fill out the form below, and I'll get back to you within 48 hours.</p>
     </div>
     <div class="form-card reveal">
       <div class="f-title">// Send a message</div>
