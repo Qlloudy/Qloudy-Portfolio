@@ -208,6 +208,87 @@ body.loaded .hero h1 .line:nth-child(3) span { animation: lineUp 0.9s cubic-bezi
 .sec-title em { font-style: italic; color: var(--amber); font-weight: 600; }
 .sec-count { font-family: 'VT323', monospace; font-size: 0.95rem; letter-spacing: 2px; color: var(--dimmer); }
 
+/* ── WORK GALLERY (horizontal shelf) ──────────── */
+#work { background: var(--black); }
+.work-scroll-wrap { position: relative; margin: 0 -40px; }
+.work-scroll-wrap::before, .work-scroll-wrap::after {
+  content: ''; position: absolute; top: 0; bottom: 16px; width: 60px; z-index: 3; pointer-events: none;
+}
+.work-scroll-wrap::before { left: 0; background: linear-gradient(to right, var(--black), transparent); }
+.work-scroll-wrap::after { right: 0; background: linear-gradient(to left, var(--black), transparent); }
+.work-scroll {
+  display: flex; gap: 20px; overflow-x: auto;
+  padding: 8px 40px 18px; scroll-snap-type: x mandatory; cursor: grab;
+}
+.work-scroll:active { cursor: grabbing; }
+.work-scroll::-webkit-scrollbar { height: 4px; }
+.work-scroll::-webkit-scrollbar-track { background: var(--panel); border-radius: 2px; }
+.work-scroll::-webkit-scrollbar-thumb { background: var(--line2); border-radius: 2px; }
+
+.work-tile {
+  position: relative; display: block;
+  flex-shrink: 0; width: 420px; scroll-snap-align: start;
+  border-radius: 6px; overflow: hidden;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  aspect-ratio: 16 / 9;
+  transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), border-color 0.3s, box-shadow 0.3s;
+}
+.work-tile img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: brightness(0.55) saturate(0.85);
+  transition: filter 0.3s ease, transform 0.4s cubic-bezier(0.16,1,0.3,1);
+}
+.work-tile:hover {
+  transform: translateY(-6px);
+  border-color: var(--line2);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.5);
+}
+.work-tile:hover img {
+  filter: brightness(1) saturate(1);
+  transform: scale(1.05);
+}
+.work-tile::after {
+  content: '';
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(to top, rgba(8,9,11,0.85) 0%, rgba(8,9,11,0.1) 45%, transparent 100%);
+  opacity: 0.9; transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.work-tile:hover::after { opacity: 0.65; }
+
+.work-tile-play {
+  position: absolute; top: 50%; left: 50%; z-index: 3;
+  width: 54px; height: 54px; border-radius: 50%;
+  background: rgba(229,181,103,0.92); color: var(--black);
+  display: flex; align-items: center; justify-content: center;
+  transform: translate(-50%,-50%) scale(0.8);
+  opacity: 0; transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.16,1,0.3,1);
+  pointer-events: none;
+}
+.work-tile:hover .work-tile-play { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+.work-tile-play svg { width: 20px; height: 20px; margin-left: 3px; }
+
+.work-tile-info {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+  padding: 16px 18px;
+}
+.work-tile-title {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 1rem; font-weight: 600; color: var(--white);
+  line-height: 1.3; margin-bottom: 4px;
+}
+.work-tile-meta {
+  font-family: 'VT323', monospace; font-size: 0.85rem; letter-spacing: 1px;
+  color: var(--amber); display: flex; align-items: center; gap: 8px;
+}
+.work-tile-num {
+  position: absolute; top: 12px; left: 14px; z-index: 2;
+  font-family: 'VT323', monospace; font-size: 0.9rem; letter-spacing: 1px;
+  color: var(--white); background: rgba(8,9,11,0.7); padding: 1px 8px; border-radius: 2px;
+  backdrop-filter: blur(4px);
+}
+
 /* ── CLIENTS ──────────────────────────────────── */
 #clients { background: var(--panel); padding: 90px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); overflow: hidden; }
 #clients .sec-head { padding: 0 40px; }
@@ -308,6 +389,11 @@ footer { background: var(--black); border-top: 1px solid var(--line); padding: 2
   .nav-links a:not(.nav-cta) { display: none; }
   .hero-content { padding: 0 24px; }
   .section { padding: 80px 24px; }
+  #work { padding: 80px 0; }
+  #work .sec-head { padding: 0 24px; }
+  .work-scroll-wrap { margin: 0 -24px; }
+  .work-scroll { padding: 8px 24px 18px; }
+  .work-tile { width: 320px; }
   #clients .sec-head { padding: 0 24px; }
   .about-grid { grid-template-columns: 1fr; gap: 40px; }
   .about-side { border-left: none; padding-left: 0; border-top: 1px solid var(--line); padding-top: 32px; }
@@ -329,6 +415,7 @@ footer { background: var(--black); border-top: 1px solid var(--line); padding: 2
 <nav>
   <a href="#top" class="logo"><b>Q</b>LOUDY_</a>
   <div class="nav-links">
+    <a href="#work">Work</a>
     <a href="#clients">Clients</a>
     <a href="#about">About</a>
     <a href="#contact" class="nav-cta">Hire Me</a>
@@ -370,6 +457,85 @@ footer { background: var(--black); border-top: 1px solid var(--line); padding: 2
   <div class="scroll-cue">
     <span>SCROLL</span>
     <div class="bar"></div>
+  </div>
+</section>
+
+<!-- Work -->
+<section class="section" id="work">
+  <div class="sec-head reveal">
+    <div>
+      <div class="sec-tag">Selected Work</div>
+      <h2 class="sec-title glitch" data-text="Featured Edits">Featured <em>Edits</em></h2>
+    </div>
+    <div class="sec-count">07 ENTRIES // DRAG TO SCRUB →</div>
+  </div>
+
+  <div class="work-scroll-wrap reveal">
+    <div class="work-scroll" id="workScroll">
+    <a class="work-tile" href="https://www.youtube.com/watch?v=aoOYKqjPuO8" target="_blank" rel="noopener">
+      <img src="https://i.ytimg.com/vi/aoOYKqjPuO8/hqdefault.jpg" alt="Why Is Korra So HATED?" loading="lazy">
+      <div class="work-tile-num">01</div>
+      <div class="work-tile-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+      <div class="work-tile-info">
+        <div class="work-tile-title">Why Is Korra So HATED?</div>
+        <div class="work-tile-meta">▶ WATCH ON YOUTUBE</div>
+      </div>
+    </a>
+    <a class="work-tile" href="https://www.youtube.com/watch?v=n4yZc9DjwLQ" target="_blank" rel="noopener">
+      <img src="https://i.ytimg.com/vi/n4yZc9DjwLQ/hqdefault.jpg" alt="Video" loading="lazy">
+      <div class="work-tile-num">02</div>
+      <div class="work-tile-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+      <div class="work-tile-info">
+        <div class="work-tile-title" id="title-n4yZc9DjwLQ">Video Essay</div>
+        <div class="work-tile-meta">▶ WATCH ON YOUTUBE</div>
+      </div>
+    </a>
+    <a class="work-tile" href="https://www.youtube.com/watch?v=2HGF6zkihz8" target="_blank" rel="noopener">
+      <img src="https://i.ytimg.com/vi/2HGF6zkihz8/hqdefault.jpg" alt="Video" loading="lazy">
+      <div class="work-tile-num">03</div>
+      <div class="work-tile-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+      <div class="work-tile-info">
+        <div class="work-tile-title" id="title-2HGF6zkihz8">Video Essay</div>
+        <div class="work-tile-meta">▶ WATCH ON YOUTUBE</div>
+      </div>
+    </a>
+    <a class="work-tile" href="https://www.youtube.com/watch?v=mhyQQ-wPsYQ" target="_blank" rel="noopener">
+      <img src="https://i.ytimg.com/vi/mhyQQ-wPsYQ/hqdefault.jpg" alt="How Ego is Highlighted in Whiplash" loading="lazy">
+      <div class="work-tile-num">04</div>
+      <div class="work-tile-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+      <div class="work-tile-info">
+        <div class="work-tile-title">How Ego is Highlighted in Whiplash</div>
+        <div class="work-tile-meta">▶ WATCH ON YOUTUBE</div>
+      </div>
+    </a>
+    <a class="work-tile" href="https://www.youtube.com/watch?v=3HK7CD_q62I" target="_blank" rel="noopener">
+      <img src="https://i.ytimg.com/vi/3HK7CD_q62I/hqdefault.jpg" alt="Open World Games Are Empty" loading="lazy">
+      <div class="work-tile-num">05</div>
+      <div class="work-tile-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+      <div class="work-tile-info">
+        <div class="work-tile-title">Open World Games Are Empty</div>
+        <div class="work-tile-meta">▶ WATCH ON YOUTUBE</div>
+      </div>
+    </a>
+    <a class="work-tile" href="https://www.youtube.com/watch?v=otQR2T77lE8" target="_blank" rel="noopener">
+      <img src="https://i.ytimg.com/vi/otQR2T77lE8/hqdefault.jpg" alt="The Time One Piece Became a Horror Movie" loading="lazy">
+      <div class="work-tile-num">06</div>
+      <div class="work-tile-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+      <div class="work-tile-info">
+        <div class="work-tile-title">The Time One Piece Became a Horror Movie</div>
+        <div class="work-tile-meta">▶ WATCH ON YOUTUBE</div>
+      </div>
+    </a>
+    <a class="work-tile" href="https://www.youtube.com/watch?v=xDrbpH3Etgk" target="_blank" rel="noopener">
+      <img src="https://i.ytimg.com/vi/xDrbpH3Etgk/hqdefault.jpg" alt="The Blacktop Collective" loading="lazy">
+      <div class="work-tile-num">07</div>
+      <div class="work-tile-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
+      <div class="work-tile-info">
+        <div class="work-tile-title">I made my hood friends play Minecraft for the first time</div>
+        <div class="work-tile-meta">▶ WATCH ON YOUTUBE</div>
+      </div>
+    </a>
+    </div>
   </div>
 </section>
 
@@ -553,6 +719,40 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
     requestAnimationFrame(tick);
   }
   requestAnimationFrame(tick);
+})();
+
+// Drag-scroll for work shelf (suppresses click if dragged)
+(function() {
+  const ws = document.getElementById('workScroll');
+  if (!ws) return;
+  let down=false, moved=false, sx=0, sl=0;
+  ws.addEventListener('mousedown', e => { down=true; moved=false; sx=e.pageX; sl=ws.scrollLeft; });
+  window.addEventListener('mouseup', () => { down=false; setTimeout(()=>{ moved=false; }, 0); });
+  ws.addEventListener('mousemove', e => {
+    if (!down) return;
+    const dx = e.pageX - sx;
+    if (Math.abs(dx) > 5) moved = true;
+    ws.scrollLeft = sl - dx;
+  });
+  // Block the link navigation only if the user was dragging
+  ws.querySelectorAll('.work-tile').forEach(tile => {
+    tile.addEventListener('click', e => { if (moved) { e.preventDefault(); } });
+  });
+})();
+
+// Fetch titles for the two untitled work videos
+const YT_KEY = "AIzaSyBJsS7jWVgzop2vTbA1IpnRaEYVJYRDvrw";
+(async function loadWorkTitles() {
+  const ids = ["n4yZc9DjwLQ","2HGF6zkihz8"];
+  try {
+    const r = await fetch(`https://www.googleapis.com/youtube/v3/videos?id=${ids.join(',')}&key=${YT_KEY}&part=snippet`);
+    const d = await r.json();
+    if (!d.items) return;
+    d.items.forEach(item => {
+      const el = document.getElementById('title-' + item.id);
+      if (el) el.textContent = item.snippet.title;
+    });
+  } catch(e) { console.warn('Title fetch failed', e); }
 })();
 
 // Contact form
