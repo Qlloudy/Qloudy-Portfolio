@@ -484,7 +484,7 @@ footer { background: var(--black); border-top: 1px solid var(--line); padding: 2
       <div class="sec-tag">Selected Work</div>
       <h2 class="sec-title glitch" data-text="Featured Edits">Featured <em>Edits</em></h2>
     </div>
-    <div class="sec-count">07 ENTRIES // HOVER EDGES TO PAN ↔</div>
+    <div class="sec-count">05 ENTRIES // HOVER EDGES TO PAN ↔</div>
   </div>
 
   <div class="work-scroll-wrap reveal">
@@ -500,27 +500,9 @@ footer { background: var(--black); border-top: 1px solid var(--line); padding: 2
         <div class="work-tile-meta">▶ WATCH ON YOUTUBE</div>
       </div>
     </a>
-    <a class="work-tile" href="https://www.youtube.com/watch?v=n4yZc9DjwLQ" target="_blank" rel="noopener">
-      <img src="https://i.ytimg.com/vi/n4yZc9DjwLQ/hqdefault.jpg" alt="Video" loading="lazy">
-      <div class="work-tile-num">02</div>
-      <div class="work-tile-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
-      <div class="work-tile-info">
-        <div class="work-tile-title" id="title-n4yZc9DjwLQ">Video Essay</div>
-        <div class="work-tile-meta">▶ WATCH ON YOUTUBE</div>
-      </div>
-    </a>
-    <a class="work-tile" href="https://www.youtube.com/watch?v=2HGF6zkihz8" target="_blank" rel="noopener">
-      <img src="https://i.ytimg.com/vi/2HGF6zkihz8/hqdefault.jpg" alt="Video" loading="lazy">
-      <div class="work-tile-num">03</div>
-      <div class="work-tile-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
-      <div class="work-tile-info">
-        <div class="work-tile-title" id="title-2HGF6zkihz8">Video Essay</div>
-        <div class="work-tile-meta">▶ WATCH ON YOUTUBE</div>
-      </div>
-    </a>
     <a class="work-tile" href="https://www.youtube.com/watch?v=mhyQQ-wPsYQ" target="_blank" rel="noopener">
       <img src="https://i.ytimg.com/vi/mhyQQ-wPsYQ/hqdefault.jpg" alt="How Ego is Highlighted in Whiplash" loading="lazy">
-      <div class="work-tile-num">04</div>
+      <div class="work-tile-num">02</div>
       <div class="work-tile-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       <div class="work-tile-info">
         <div class="work-tile-title">How Ego is Highlighted in Whiplash</div>
@@ -529,7 +511,7 @@ footer { background: var(--black); border-top: 1px solid var(--line); padding: 2
     </a>
     <a class="work-tile" href="https://www.youtube.com/watch?v=3HK7CD_q62I" target="_blank" rel="noopener">
       <img src="https://i.ytimg.com/vi/3HK7CD_q62I/hqdefault.jpg" alt="Open World Games Are Empty" loading="lazy">
-      <div class="work-tile-num">05</div>
+      <div class="work-tile-num">03</div>
       <div class="work-tile-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       <div class="work-tile-info">
         <div class="work-tile-title">Open World Games Are Empty</div>
@@ -538,7 +520,7 @@ footer { background: var(--black); border-top: 1px solid var(--line); padding: 2
     </a>
     <a class="work-tile" href="https://www.youtube.com/watch?v=otQR2T77lE8" target="_blank" rel="noopener">
       <img src="https://i.ytimg.com/vi/otQR2T77lE8/hqdefault.jpg" alt="The Time One Piece Became a Horror Movie" loading="lazy">
-      <div class="work-tile-num">06</div>
+      <div class="work-tile-num">04</div>
       <div class="work-tile-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       <div class="work-tile-info">
         <div class="work-tile-title">The Time One Piece Became a Horror Movie</div>
@@ -547,7 +529,7 @@ footer { background: var(--black); border-top: 1px solid var(--line); padding: 2
     </a>
     <a class="work-tile" href="https://www.youtube.com/watch?v=xDrbpH3Etgk" target="_blank" rel="noopener">
       <img src="https://i.ytimg.com/vi/xDrbpH3Etgk/hqdefault.jpg" alt="The Blacktop Collective" loading="lazy">
-      <div class="work-tile-num">07</div>
+      <div class="work-tile-num">05</div>
       <div class="work-tile-play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></div>
       <div class="work-tile-info">
         <div class="work-tile-title">I made my hood friends play Minecraft for the first time</div>
@@ -790,21 +772,6 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
   }
   // Use transform-free scrollLeft loop
   requestAnimationFrame(tick);
-})();
-
-// Fetch titles for the two untitled work videos
-const YT_KEY = "AIzaSyBJsS7jWVgzop2vTbA1IpnRaEYVJYRDvrw";
-(async function loadWorkTitles() {
-  const ids = ["n4yZc9DjwLQ","2HGF6zkihz8"];
-  try {
-    const r = await fetch(`https://www.googleapis.com/youtube/v3/videos?id=${ids.join(',')}&key=${YT_KEY}&part=snippet`);
-    const d = await r.json();
-    if (!d.items) return;
-    d.items.forEach(item => {
-      const el = document.getElementById('title-' + item.id);
-      if (el) el.textContent = item.snippet.title;
-    });
-  } catch(e) { console.warn('Title fetch failed', e); }
 })();
 
 // Contact form
