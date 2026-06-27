@@ -217,13 +217,30 @@ body.loaded .hero h1 .line:nth-child(3) span { animation: lineUp 0.9s cubic-bezi
 .work-scroll-wrap::before { left: 0; background: linear-gradient(to right, var(--black), transparent); }
 .work-scroll-wrap::after { right: 0; background: linear-gradient(to left, var(--black), transparent); }
 .work-scroll {
-  display: flex; gap: 20px; overflow-x: auto;
-  padding: 8px 40px 18px; scroll-snap-type: x mandatory; cursor: grab;
+  display: flex; gap: 20px; overflow-x: hidden;
+  padding: 8px 40px 18px;
 }
-.work-scroll:active { cursor: grabbing; }
-.work-scroll::-webkit-scrollbar { height: 4px; }
-.work-scroll::-webkit-scrollbar-track { background: var(--panel); border-radius: 2px; }
-.work-scroll::-webkit-scrollbar-thumb { background: var(--line2); border-radius: 2px; }
+.work-scroll::-webkit-scrollbar { display: none; }
+.work-scroll { scrollbar-width: none; }
+
+/* Edge hover zones */
+.work-edge {
+  position: absolute; top: 0; bottom: 16px; width: 90px; z-index: 4;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.25s ease;
+  cursor: pointer;
+}
+.work-edge-left { left: 0; }
+.work-edge-right { right: 0; }
+.work-edge-arrow {
+  font-family: 'Bricolage Grotesque', sans-serif;
+  font-size: 2.4rem; color: var(--white);
+  width: 44px; height: 44px; border-radius: 50%;
+  background: rgba(229,181,103,0.92); color: var(--black);
+  display: flex; align-items: center; justify-content: center;
+  line-height: 1; padding-bottom: 4px;
+}
+.work-edge:hover { opacity: 1; }
 
 .work-tile {
   position: relative; display: block;
@@ -467,10 +484,12 @@ footer { background: var(--black); border-top: 1px solid var(--line); padding: 2
       <div class="sec-tag">Selected Work</div>
       <h2 class="sec-title glitch" data-text="Featured Edits">Featured <em>Edits</em></h2>
     </div>
-    <div class="sec-count">07 ENTRIES // DRAG TO SCRUB →</div>
+    <div class="sec-count">07 ENTRIES // HOVER EDGES TO PAN ↔</div>
   </div>
 
   <div class="work-scroll-wrap reveal">
+    <div class="work-edge work-edge-left" id="workEdgeLeft"><span class="work-edge-arrow">‹</span></div>
+    <div class="work-edge work-edge-right" id="workEdgeRight"><span class="work-edge-arrow">›</span></div>
     <div class="work-scroll" id="workScroll">
     <a class="work-tile" href="https://www.youtube.com/watch?v=aoOYKqjPuO8" target="_blank" rel="noopener">
       <img src="https://i.ytimg.com/vi/aoOYKqjPuO8/hqdefault.jpg" alt="Why Is Korra So HATED?" loading="lazy">
@@ -721,23 +740,56 @@ document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
   requestAnimationFrame(tick);
 })();
 
-// Drag-scroll for work shelf (suppresses click if dragged)
+// Auto-scroll work shelf with edge-hover acceleration
 (function() {
   const ws = document.getElementById('workScroll');
   if (!ws) return;
-  let down=false, moved=false, sx=0, sl=0;
-  ws.addEventListener('mousedown', e => { down=true; moved=false; sx=e.pageX; sl=ws.scrollLeft; });
-  window.addEventListener('mouseup', () => { down=false; setTimeout(()=>{ moved=false; }, 0); });
-  ws.addEventListener('mousemove', e => {
-    if (!down) return;
-    const dx = e.pageX - sx;
-    if (Math.abs(dx) > 5) moved = true;
-    ws.scrollLeft = sl - dx;
-  });
-  // Block the link navigation only if the user was dragging
-  ws.querySelectorAll('.work-tile').forEach(tile => {
-    tile.addEventListener('click', e => { if (moved) { e.preventDefault(); } });
-  });
+  const edgeL = document.getElementById('workEdgeLeft');
+  const edgeR = document.getElementById('workEdgeRight');
+
+  // Duplicate tiles once for a seamless loop
+  const originals = Array.from(ws.children);
+  originals.forEach(el => ws.appendChild(el.cloneNode(true)));
+
+  let halfWidth = 0;
+  function measure() {
+    halfWidth = 0;
+    for (let i = 0; i < originals.length; i++) halfWidth += ws.children[i].offsetWidth + 20; // +gap
+  }
+  window.addEventListener('load', measure);
+  setTimeout(measure, 300);
+  window.addEventListener('resize', measure);
+
+  const BASE = 0.4;   // idle drift speed (px/frame)
+  const FAST = 7;     // speed when hovering an edge
+  let dir = 1;        // 1 = forward (right→left content), matches BASE drift
+  let speed = BASE;
+  let target = BASE;
+  let hoverDir = 0;   // -1 left, +1 right, 0 none
+
+  edgeL.addEventListener('mouseenter', () => hoverDir = -1);
+  edgeL.addEventListener('mouseleave', () => hoverDir = 0);
+  edgeR.addEventListener('mouseenter', () => hoverDir = 1);
+  edgeR.addEventListener('mouseleave', () => hoverDir = 0);
+
+  let pos = 0;
+  function tick() {
+    if (halfWidth > 0) {
+      let velocity;
+      if (hoverDir === 1) velocity = FAST;        // scroll right (content moves left)
+      else if (hoverDir === -1) velocity = -FAST; // scroll left
+      else velocity = BASE;                        // idle drift forward
+
+      pos += velocity;
+      // Wrap seamlessly
+      if (pos >= halfWidth) pos -= halfWidth;
+      if (pos < 0) pos += halfWidth;
+      ws.scrollLeft = pos;
+    }
+    requestAnimationFrame(tick);
+  }
+  // Use transform-free scrollLeft loop
+  requestAnimationFrame(tick);
 })();
 
 // Fetch titles for the two untitled work videos
